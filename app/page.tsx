@@ -1,11 +1,13 @@
-import Image from "next/image";
+import { Hero } from "./components/Hero";
+import { Infrastructure } from "./components/Infrastructure";
+import { FeaturedProject } from "./components/FeaturedProject";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h1>
-        Ete es el portafolio oii
-      </h1>
-    </div>
+    <main className="min-h-screen bg-background">
+      <Hero />
+      <Infrastructure />
+      <FeaturedProject />
+    </main>
   );
 }

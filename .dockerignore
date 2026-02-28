@@ -1,0 +1,10 @@
+.git
+.next
+node_modules
+.env*
+.claude
+.github
+*.pen
+images
+README.md
+docs
