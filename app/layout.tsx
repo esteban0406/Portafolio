@@ -13,9 +13,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Luis Esteban Pena | Full Stack Developer",
+  title: "Luis Esteban Peña | Full Stack Developer",
   description:
-    "Portfolio of Luis Esteban Pena — Full Stack Software Developer & CS & AI Engineering student. Building scalable applications with modern technologies.",
+    "Portfolio of Luis Esteban Peña — Full Stack Software Developer & CS & AI Engineering student. Building scalable applications with modern technologies.",
 };
 
 export default function RootLayout({
