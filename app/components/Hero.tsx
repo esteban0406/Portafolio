@@ -22,7 +22,7 @@ export function Hero() {
 
       {/* Name */}
       <h1 className="text-center text-5xl font-bold tracking-tight text-foreground md:text-7xl">
-        Luis Esteban Pena
+        Luis Esteban Peña
       </h1>
 
       {/* Title */}

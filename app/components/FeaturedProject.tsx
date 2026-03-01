@@ -45,7 +45,7 @@ export function FeaturedProject() {
 
           <div className="flex flex-wrap gap-4 pt-2">
             <Button href="https://esteban-discord-clone.duckdns.org/">
-              View Project
+              Go to web app
               <svg
                 width="16"
                 height="16"
