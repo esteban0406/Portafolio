@@ -9,6 +9,7 @@ const techStack = [
   { label: "Next.js", icon: "N" },
   { label: "Nest.js", icon: "N" },
   { label: "Docker", icon: "D" },
+  { label: "github", icon: "GH" },
 ];
 
 export function Hero() {
@@ -22,18 +23,17 @@ export function Hero() {
 
       {/* Name */}
       <h1 className="text-center text-5xl font-bold tracking-tight text-foreground md:text-7xl">
-        Luis Esteban Pena
+        Luis Esteban Peña
       </h1>
 
       {/* Title */}
       <p className="text-center text-lg text-text-secondary md:text-xl">
-        Full Stack Software Developer | CS &amp; AI Engineering
+        Full-Stack Developer focused on backend, DevOps, and real-time systems
       </p>
 
       {/* Description */}
       <p className="max-w-xl text-center text-base leading-relaxed text-text-muted">
-        Building scalable applications with modern technologies. Passionate
-        about clean architecture, DevOps, and AI-driven solutions.
+        I build production-ready web applications with real-time features, scalable backend architectures, and fully automated CI/CD pipelines.
       </p>
 
       {/* Tech stack */}
