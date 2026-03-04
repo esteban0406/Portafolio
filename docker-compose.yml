@@ -1,0 +1,17 @@
+services:
+  portafolio:
+    build:
+      context: .
+      dockerfile: dockerfile
+      target: deps         
+    command: pnpm dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app              # Bind mount: live source code for hot reload
+      - /app/node_modules   # Anonymous volume: preserves container node_modules
+    environment:
+      NODE_ENV: development
+      NEXT_TELEMETRY_DISABLED: "1"
+      WATCHPACK_POLLING: "true"  # Ensures file-change events work in Docker
+    restart: unless-stopped
