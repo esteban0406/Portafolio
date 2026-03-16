@@ -15,10 +15,11 @@ const techStack = [
 export function Hero() {
   return (
     <section className="flex min-h-screen flex-col items-center justify-center gap-6 px-6 py-24 md:px-20">
+      
       {/* Availability badge */}
       <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 font-mono text-xs font-medium text-text-secondary">
         <span className="h-2 w-2 rounded-full bg-accent" />
-        Available for opportunities
+        Open to junior backend / full-stack opportunities
       </span>
 
       {/* Name */}
@@ -26,15 +27,24 @@ export function Hero() {
         Luis Esteban Peña
       </h1>
 
-      {/* Title */}
+      {/* Role */}
       <p className="text-center text-lg text-text-secondary md:text-xl">
-        Full-Stack Developer focused on backend, DevOps, and real-time systems
+        Full-Stack Developer focused on scalable backend systems
       </p>
 
-      {/* Description */}
-      <p className="max-w-xl text-center text-base leading-relaxed text-text-muted">
-        I build production-ready web applications with real-time features, scalable backend architectures, and fully automated CI/CD pipelines.
+      {/* Value Proposition */}
+      <p className="max-w-2xl text-center text-base leading-relaxed text-text-muted md:text-lg">
+        I build production-ready web applications with real-time features,
+        scalable backend architectures, and automated CI/CD pipelines using
+        modern DevOps practices.
       </p>
+
+      {/* Quick credibility signals */}
+      <div className="flex flex-wrap justify-center gap-6 text-sm text-text-muted font-mono mt-2">
+        <span>✔ Real-time systems</span>
+        <span>✔ CI/CD automated</span>
+        <span>✔ Dockerized deployments</span>
+      </div>
 
       {/* Tech stack */}
       <div className="mt-4 flex flex-wrap justify-center gap-3">
@@ -49,6 +59,36 @@ export function Hero() {
             }
           />
         ))}
+      </div>
+
+      {/* CTA Buttons */}
+      <div className="mt-6 flex flex-col gap-4 sm:flex-row">
+        
+        {/* Primary CTA */}
+        <a
+          href="#projects"
+          className="rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-black transition hover:opacity-90"
+        >
+          View Projects
+        </a>
+
+        {/* Secondary CTA */}
+        <a
+          href="https://github.com/esteban0406"
+          target="_blank"
+          className="rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-muted"
+        >
+          GitHub
+        </a>
+
+        {/* Optional CTA */}
+        <a
+          href="/cv.pdf"
+          className="rounded-lg border border-border px-6 py-3 text-sm font-semibold text-text-secondary transition hover:bg-muted"
+        >
+          Download CV
+        </a>
+
       </div>
     </section>
   );
