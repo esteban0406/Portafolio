@@ -14,11 +14,7 @@ export function PipelineStep({
   return (
     <>
       <div
-        className={`flex w-44 flex-col items-center gap-3 rounded-xl border p-5 ${
-          isLast
-            ? "border-accent bg-card"
-            : "border-border bg-card"
-        }`}
+        className={`flex w-44 flex-col items-center gap-3 rounded-xl border p-5 border-border bg-card`}
       >
         <div className="text-accent">{icon}</div>
         <p className="text-sm font-semibold text-foreground">{title}</p>
