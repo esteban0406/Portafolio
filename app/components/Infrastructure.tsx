@@ -131,12 +131,12 @@ const capabilities = [
 
 export function Infrastructure() {
   return (
-    <section className="flex flex-col items-center gap-12 bg-card-darker px-6 py-20 md:px-20">
+    <section className="flex flex-col items-center gap-12 bg-card-darker px-6 py-16 md:px-12 md:py-16 lg:px-20 lg:py-20">
       {/* Header */}
       <div className="flex flex-col items-center gap-4 text-center">
         <div className="h-0.5 w-12 rounded-full bg-accent" />
 
-        <h2 className="text-3xl font-bold text-foreground md:text-4xl">
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
           Infrastructure & DevOps
         </h2>
 
@@ -149,7 +149,7 @@ export function Infrastructure() {
       </div>
 
       {/* Pipeline flow */}
-      <div className="flex flex-wrap items-center justify-center gap-0">
+      <div className="flex w-full flex-col items-center gap-4 md:grid md:grid-cols-3 md:gap-4 xl:flex xl:flex-row xl:flex-nowrap xl:items-center xl:justify-center xl:gap-0">
         {steps.map((step, i) => (
           <PipelineStep
             key={step.title}
@@ -170,7 +170,7 @@ export function Infrastructure() {
       </p>
 
       {/* Capabilities */}
-      <div className="flex flex-wrap justify-center gap-6 text-sm font-mono text-text-muted">
+      <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm font-mono text-text-muted md:gap-x-6 md:gap-y-3">
         {capabilities.map((cap) => (
           <span key={cap}>✔ {cap}</span>
         ))}

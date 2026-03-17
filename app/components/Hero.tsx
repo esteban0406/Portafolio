@@ -14,7 +14,7 @@ const techStack = [
 
 export function Hero() {
   return (
-    <section className="flex min-h-screen flex-col items-center justify-center gap-6 px-6 py-24 md:px-20">
+    <section className="flex min-h-screen flex-col items-center justify-center gap-6 px-6 py-16 md:px-12 md:py-20 lg:px-20 lg:py-24">
       
       {/* Availability badge */}
       <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 font-mono text-xs font-medium text-text-secondary">
@@ -23,12 +23,12 @@ export function Hero() {
       </span>
 
       {/* Name */}
-      <h1 className="text-center text-5xl font-bold tracking-tight text-foreground md:text-7xl">
+      <h1 className="text-center text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
         Luis Esteban Peña
       </h1>
 
       {/* Role */}
-      <p className="text-center text-lg text-text-secondary md:text-xl">
+      <p className="text-center text-lg text-text-secondary md:text-xl lg:text-2xl">
         Full-Stack Developer focused on scalable backend systems
       </p>
 
@@ -40,7 +40,7 @@ export function Hero() {
       </p>
 
       {/* Quick credibility signals */}
-      <div className="flex flex-wrap justify-center gap-6 text-sm text-text-muted font-mono mt-2">
+      <div className="mt-2 flex flex-wrap justify-center gap-3 text-sm font-mono text-text-muted sm:gap-4 md:gap-6">
         <span>✔ Real-time systems</span>
         <span>✔ CI/CD automated</span>
         <span>✔ Dockerized deployments</span>

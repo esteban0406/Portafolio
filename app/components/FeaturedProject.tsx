@@ -20,27 +20,27 @@ const features = [
 
 export function FeaturedProject() {
   return (
-    <section className="flex flex-col items-center gap-12 px-6 py-20 md:px-20">
+    <section className="flex flex-col items-center gap-12 px-6 py-16 md:px-12 md:py-16 lg:px-20 lg:py-20">
       {/* Header */}
       <div className="flex flex-col items-center gap-3">
         <div className="h-0.5 w-12 rounded-full bg-accent" />
 
-        <h2 className="text-center text-3xl font-bold text-foreground md:text-4xl">
+        <h2 className="text-center text-3xl font-bold text-foreground lg:text-4xl">
           Featured Engineering Project
         </h2>
       </div>
 
       {/* Content */}
-      <div className="flex w-full max-w-6xl flex-col items-center gap-12 lg:flex-row lg:items-center">
+      <div className="flex w-full max-w-6xl flex-col items-center gap-10 md:flex-row md:items-start md:gap-8 lg:gap-12">
         {/* Screenshot */}
-        <div className="flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-card lg:w-3/5">
+        <div className="flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-card md:w-3/5">
           <span className="font-mono text-sm text-text-muted">
             Project Screenshot
           </span>
         </div>
 
         {/* Info */}
-        <div className="flex flex-col gap-6 lg:w-2/5">
+        <div className="flex flex-col gap-6 md:w-2/5">
           {/* Title */}
           <h3 className="text-3xl font-bold text-foreground">Discord Clone</h3>
 
@@ -84,7 +84,7 @@ export function FeaturedProject() {
           </div>
 
           {/* Buttons */}
-          <div className="flex flex-wrap gap-4 pt-2">
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:gap-3 md:gap-4">
             <Button href="https://esteban-discord-clone.duckdns.org/">
               Live Demo
               <svg

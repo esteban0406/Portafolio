@@ -44,7 +44,7 @@ export default function DiscordCloneCaseStudy() {
   return (
     <main className="min-h-screen bg-background">
       {/* HEADER */}
-      <header className="flex flex-col gap-6 bg-card-darker px-6 pb-12 pt-12 md:px-20">
+      <header className="flex flex-col gap-6 bg-card-darker px-6 pb-12 pt-12 md:px-12 lg:px-20">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-foreground"
@@ -52,7 +52,7 @@ export default function DiscordCloneCaseStudy() {
           ← Back to Home
         </Link>
 
-        <h1 className="text-4xl font-bold text-foreground md:text-5xl">
+        <h1 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
           Case Study: Discord Clone
         </h1>
 
@@ -61,7 +61,7 @@ export default function DiscordCloneCaseStudy() {
           behind a real-time messaging platform inspired by Discord.
         </p>
 
-        <div className="flex gap-6 text-sm font-medium">
+        <div className="flex flex-wrap gap-4 text-sm font-medium sm:gap-5 md:gap-6">
           <a
             href="https://esteban-discord-clone.duckdns.org/"
             className="text-accent hover:underline"
@@ -79,10 +79,10 @@ export default function DiscordCloneCaseStudy() {
       </header>
 
       {/* PROBLEM */}
-      <section className="flex flex-col gap-8 px-6 py-16 md:px-20">
+      <section className="flex flex-col gap-8 px-6 py-16 md:px-12 lg:px-20">
         <SectionHeader number="00" label="PROBLEM" />
 
-        <h2 className="text-3xl font-bold text-foreground">Problem & Goals</h2>
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl">Problem & Goals</h2>
 
         <p className="max-w-3xl text-text-secondary leading-relaxed">
           Real-time communication platforms must solve several architectural
@@ -100,10 +100,10 @@ export default function DiscordCloneCaseStudy() {
       </section>
 
       {/* DESIGN */}
-      <section className="flex flex-col gap-8 bg-card-darker px-6 py-16 md:px-20">
+      <section className="flex flex-col gap-8 bg-card-darker px-6 py-16 md:px-12 lg:px-20">
         <SectionHeader number="01" label="DESIGN" />
 
-        <h2 className="text-3xl font-bold text-foreground">
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl">
           UI/UX Design Decisions
         </h2>
 
@@ -120,16 +120,16 @@ export default function DiscordCloneCaseStudy() {
           tools.
         </p>
 
-        <div className="flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-card">
+        <div className="flex aspect-video min-h-[180px] w-full items-center justify-center rounded-xl border border-border bg-card">
           UI Mockup Placeholder
         </div>
       </section>
 
       {/* ARCHITECTURE */}
-      <section className="flex flex-col gap-8 px-6 py-16 md:px-20">
+      <section className="flex flex-col gap-8 px-6 py-16 md:px-12 lg:px-20">
         <SectionHeader number="02" label="ARCHITECTURE" />
 
-        <h2 className="text-3xl font-bold text-foreground">
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl">
           System Architecture
         </h2>
 
@@ -145,16 +145,16 @@ export default function DiscordCloneCaseStudy() {
           communication.
         </p>
 
-        <div className="flex aspect-video max-h-[400px] w-full items-center justify-center rounded-xl border border-border bg-card">
+        <div className="flex aspect-video min-h-[180px] max-h-[400px] w-full items-center justify-center rounded-xl border border-border bg-card">
           Architecture Diagram Placeholder
         </div>
       </section>
 
       {/* AUTH FLOW */}
-      <section className="flex flex-col gap-8 bg-card-darker px-6 py-16 md:px-20">
+      <section className="flex flex-col gap-8 bg-card-darker px-6 py-16 md:px-12 lg:px-20">
         <SectionHeader number="03" label="AUTHENTICATION" />
 
-        <h2 className="text-3xl font-bold text-foreground">
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl">
           Authentication Flow
         </h2>
 
@@ -168,10 +168,10 @@ export default function DiscordCloneCaseStudy() {
       </section>
 
       {/* REALTIME FLOW */}
-      <section className="flex flex-col gap-8 px-6 py-16 md:px-20">
+      <section className="flex flex-col gap-8 px-6 py-16 md:px-12 lg:px-20">
         <SectionHeader number="04" label="REAL-TIME MESSAGING" />
 
-        <h2 className="text-3xl font-bold text-foreground">Message Flow</h2>
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl">Message Flow</h2>
 
         <ul className="max-w-3xl space-y-3 text-text-secondary">
           <li>Client sends message through WebSocket gateway</li>
@@ -183,14 +183,14 @@ export default function DiscordCloneCaseStudy() {
       </section>
 
       {/* TECHNOLOGIES */}
-      <section className="flex flex-col gap-8 bg-card-darker px-6 py-16 md:px-20">
+      <section className="flex flex-col gap-8 bg-card-darker px-6 py-16 md:px-12 lg:px-20">
         <SectionHeader number="05" label="TECH STACK" />
 
-        <h2 className="text-3xl font-bold text-foreground">
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl">
           Technology Decisions
         </h2>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {technologies.map((tech) => (
             <div
               key={tech.name}
@@ -207,10 +207,10 @@ export default function DiscordCloneCaseStudy() {
       </section>
 
       {/* CI/CD */}
-      <section className="flex flex-col gap-8 px-6 py-16 md:px-20">
+      <section className="flex flex-col gap-8 px-6 py-16 md:px-12 lg:px-20">
         <SectionHeader number="06" label="CI/CD PIPELINE" />
 
-        <h2 className="text-3xl font-bold text-foreground">
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl">
           Continuous Integration & Deployment
         </h2>
 
@@ -224,10 +224,10 @@ export default function DiscordCloneCaseStudy() {
       </section>
 
       {/* CHALLENGES */}
-      <section className="flex flex-col gap-8 bg-card-darker px-6 py-16 md:px-20">
+      <section className="flex flex-col gap-8 bg-card-darker px-6 py-16 md:px-12 lg:px-20">
         <SectionHeader number="07" label="CHALLENGES" />
 
-        <h2 className="text-3xl font-bold text-foreground">
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl">
           Challenges & Lessons Learned
         </h2>
 
@@ -250,14 +250,14 @@ export default function DiscordCloneCaseStudy() {
       </section>
 
       {/* DEMO */}
-      <section className="flex flex-col gap-8 px-6 py-16 md:px-20">
+      <section className="flex flex-col gap-8 px-6 py-16 md:px-12 lg:px-20">
         <SectionHeader number="08" label="SYSTEM DEMO" />
 
-        <h2 className="text-3xl font-bold text-foreground">
+        <h2 className="text-3xl font-bold text-foreground md:text-4xl">
           Live System Walkthrough
         </h2>
 
-        <div className="flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-card">
+        <div className="flex aspect-video min-h-[180px] w-full items-center justify-center rounded-xl border border-border bg-card">
           Video Demo Placeholder
         </div>
       </section>
