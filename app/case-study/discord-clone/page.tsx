@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const technologies = [
   {
@@ -120,8 +121,15 @@ export default function DiscordCloneCaseStudy() {
           tools.
         </p>
 
-        <div className="flex aspect-video min-h-[180px] w-full items-center justify-center rounded-xl border border-border bg-card">
-          UI Mockup Placeholder
+        <div className="w-full overflow-hidden rounded-xl border border-border bg-card p-4">
+          <Image
+            src="/images/mockup.png"
+            alt="Discord Clone UI Mockup"
+            width={1512}
+            height={787}
+            loading="lazy"
+            className="w-full h-auto"
+          />
         </div>
       </section>
 
@@ -145,8 +153,15 @@ export default function DiscordCloneCaseStudy() {
           communication.
         </p>
 
-        <div className="flex aspect-video min-h-[180px] max-h-[400px] w-full items-center justify-center rounded-xl border border-border bg-card">
-          Architecture Diagram Placeholder
+        <div className="w-full overflow-hidden rounded-xl border border-border bg-card p-4">
+          <Image
+            src="/images/architecturemermaid.png"
+            alt="System Architecture Diagram"
+            width={1200}
+            height={800}
+            loading="lazy"
+            className="w-full h-auto"
+          />
         </div>
       </section>
 
@@ -165,6 +180,17 @@ export default function DiscordCloneCaseStudy() {
           <li>4. WebSocket gateway validates authentication</li>
           <li>5. Authenticated users join channel rooms</li>
         </ul>
+
+        <div className="w-full overflow-hidden rounded-xl border border-border bg-card p-4">
+          <Image
+            src="/images/authmermaid.png"
+            alt="Authentication Flow Diagram"
+            width={1200}
+            height={800}
+            loading="lazy"
+            className="w-full h-auto"
+          />
+        </div>
       </section>
 
       {/* REALTIME FLOW */}
@@ -180,6 +206,17 @@ export default function DiscordCloneCaseStudy() {
           <li>Server broadcasts message to channel room</li>
           <li>Connected clients receive update instantly</li>
         </ul>
+
+        <div className="w-full overflow-hidden rounded-xl border border-border bg-card p-4">
+          <Image
+            src="/images/Chatflowmermaid.png"
+            alt="Message Flow Diagram"
+            width={1200}
+            height={800}
+            loading="lazy"
+            className="w-full h-auto"
+          />
+        </div>
       </section>
 
       {/* TECHNOLOGIES */}
@@ -247,19 +284,6 @@ export default function DiscordCloneCaseStudy() {
             configuring networking between services.
           </li>
         </ul>
-      </section>
-
-      {/* DEMO */}
-      <section className="flex flex-col gap-8 px-6 py-16 md:px-12 lg:px-20">
-        <SectionHeader number="08" label="SYSTEM DEMO" />
-
-        <h2 className="text-3xl font-bold text-foreground md:text-4xl">
-          Live System Walkthrough
-        </h2>
-
-        <div className="flex aspect-video min-h-[180px] w-full items-center justify-center rounded-xl border border-border bg-card">
-          Video Demo Placeholder
-        </div>
       </section>
     </main>
   );
