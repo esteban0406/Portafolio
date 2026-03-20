@@ -1,0 +1,56 @@
+{
+  "hero": {
+    "availability": "Abierto a oportunidades junior de backend / full-stack",
+    "role": "Desarrollador Full-Stack enfocado en sistemas backend escalables",
+    "valueProposition": "Construyo aplicaciones web listas para producción con funcionalidades en tiempo real, arquitecturas backend escalables y pipelines de CI/CD automatizados usando prácticas modernas de DevOps.",
+    "signals": {
+      "realtime": "✔ Sistemas en tiempo real",
+      "cicd": "✔ CI/CD automatizado",
+      "docker": "✔ Despliegues con Docker"
+    },
+    "cta": {
+      "viewProjects": "Ver Proyectos",
+      "github": "GitHub",
+      "downloadCv": "Descargar CV"
+    }
+  },
+  "infrastructure": {
+    "title": "Infraestructura & DevOps",
+    "description": "Pipeline de CI/CD automatizado con pruebas integradas que validan la calidad del código, ejecutan pruebas unitarias y end-to-end, y despliegan aplicaciones contenerizadas en un VPS de producción usando GitHub Actions, Docker y Nginx.",
+    "pipelineExplanation": "Cada push a la rama {{branch}} activa un flujo de CI que ejecuta revisiones de calidad, pruebas unitarias y end-to-end antes de construir una imagen Docker y desplegarla en un servidor VPS Linux detrás de un proxy inverso Nginx.",
+    "viewWorkflow": "Ver flujo CI/CD →",
+    "steps": {
+      "codePush": { "title": "Push de código", "description": "Repositorio GitHub" },
+      "githubActions": { "title": "GitHub Actions", "description": "Disparo del flujo CI" },
+      "testQuality": { "title": "Pruebas y calidad", "description": "Calidad, pruebas unitarias y E2E" },
+      "dockerBuild": { "title": "Build Docker", "description": "Imagen contenerizada" },
+      "vpsDeployment": { "title": "Despliegue VPS", "description": "Servidor Linux en producción" },
+      "nginxProxy": { "title": "Proxy Nginx", "description": "Enrutamiento por proxy inverso" }
+    },
+    "capabilities": [
+      "Builds automatizados en cada push",
+      "Revisiones de calidad y validación CI",
+      "Pruebas unitarias y E2E antes del merge",
+      "Entorno de producción con Docker",
+      "Enrutamiento por proxy inverso con Nginx",
+      "Despliegue en vivo en servidor VPS"
+    ]
+  },
+  "featuredProject": {
+    "sectionTitle": "Proyecto de ingeniería destacado",
+    "technicalHighlight": "Chat en tiempo real full-stack con salas de voz, RBAC y despliegue en producción",
+    "description": "Aplicación de chat en tiempo real full-stack con servidores, canales, amistades y colaboración basada en roles. Incluye salas de voz con LiveKit, Google OAuth, subida de archivos, modo demo con contenido precargado y un conjunto de más de 110 pruebas automatizadas.",
+    "keyFeaturesLabel": "Funcionalidades clave",
+    "cta": {
+      "liveDemo": "Demo en vivo",
+      "caseStudy": "Caso de estudio de arquitectura"
+    },
+    "features": [
+      "Mensajería en tiempo real y presencia vía Socket.IO",
+      "Salas de voz y video con LiveKit",
+      "Autenticación JWT + Google OAuth con RBAC",
+      "Servidores, canales, amistades y gestión de roles",
+      "Suite de pruebas con Playwright + Jest y pipeline CI/CD"
+    ]
+  }
+}

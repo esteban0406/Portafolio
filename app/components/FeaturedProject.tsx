@@ -1,53 +1,62 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
 import { Button } from "./ui/Button";
+import Image from "next/image";
 
 const techBadges = [
-  "Next.js",
-  "NestJS",
-  "WebSockets",
+  "Next.js 16",
+  "NestJS 11",
+  "Socket.IO",
   "PostgreSQL",
+  "Prisma ORM",
+  "LiveKit",
   "Docker",
-  "Nginx",
   "GitHub Actions",
 ];
 
-const features = [
-  "Real-time messaging via WebSockets",
-  "JWT authentication and role-based access control",
-  "Channel-based messaging system",
-  "Containerized deployment with Docker",
-  "Automated CI/CD pipeline",
-];
-
 export function FeaturedProject() {
+  const { t } = useTranslation("common");
+
+  const features = t("featuredProject.features", {
+    returnObjects: true,
+  }) as string[];
+
   return (
-    <section className="flex flex-col items-center gap-12 px-6 py-20 md:px-20">
+    <section className="flex flex-col items-center gap-12 px-6 py-16 md:px-12 md:py-16 lg:px-20 lg:py-20">
       {/* Header */}
       <div className="flex flex-col items-center gap-3">
         <div className="h-0.5 w-12 rounded-full bg-accent" />
 
-        <h2 className="text-center text-3xl font-bold text-foreground md:text-4xl">
-          Featured Engineering Project
+        <h2 className="text-center text-3xl font-bold text-foreground lg:text-4xl">
+          {t("featuredProject.sectionTitle")}
         </h2>
       </div>
 
       {/* Content */}
-      <div className="flex w-full max-w-6xl flex-col items-center gap-12 lg:flex-row lg:items-center">
+      <div className="flex w-full max-w-6xl flex-col items-center gap-10 md:flex-row md:items-start md:gap-8 lg:gap-12">
         {/* Screenshot */}
-        <div className="flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-card lg:w-3/5">
+        <div className="flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-card md:w-3/5">
           <span className="font-mono text-sm text-text-muted">
-            Project Screenshot
+            <Image
+                        src="/images/mockup.png"
+                        alt="Discord Clone UI Mockup"
+                        width={1512}
+                        height={787}
+                        loading="lazy"
+                        className="w-full h-auto"
+                      />
           </span>
         </div>
 
         {/* Info */}
-        <div className="flex flex-col gap-6 lg:w-2/5">
+        <div className="flex flex-col gap-6 md:w-2/5">
           {/* Title */}
-          <h3 className="text-3xl font-bold text-foreground">Discord Clone</h3>
+          <h3 className="text-3xl font-bold text-foreground">Discol</h3>
 
           {/* Technical Highlight */}
           <p className="font-mono text-xs text-accent">
-            Real-time messaging architecture with WebSockets and automated CI/CD
-            deployment
+            {t("featuredProject.technicalHighlight")}
           </p>
 
           {/* Tech stack */}
@@ -64,16 +73,13 @@ export function FeaturedProject() {
 
           {/* Description */}
           <p className="text-base leading-relaxed text-text-secondary">
-            A real-time messaging platform inspired by Discord that supports
-            channels, direct messaging, and role-based access control. Built
-            with WebSocket communication, a NestJS backend API, and a
-            containerized deployment pipeline using Docker and Nginx.
+            {t("featuredProject.description")}
           </p>
 
           {/* Key Features */}
           <div className="flex flex-col gap-2">
             <h4 className="font-mono text-xs uppercase tracking-wide text-text-muted">
-              Key Features
+              {t("featuredProject.keyFeaturesLabel")}
             </h4>
 
             <ul className="flex flex-col gap-1 text-sm text-text-secondary">
@@ -84,9 +90,9 @@ export function FeaturedProject() {
           </div>
 
           {/* Buttons */}
-          <div className="flex flex-wrap gap-4 pt-2">
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:gap-3 md:gap-4">
             <Button href="https://esteban-discord-clone.duckdns.org/">
-              Live Demo
+              {t("featuredProject.cta.liveDemo")}
               <svg
                 width="16"
                 height="16"
@@ -105,7 +111,7 @@ export function FeaturedProject() {
             </Button>
 
             <Button href="/case-study/discord-clone" variant="outline">
-              Architecture Case Study
+              {t("featuredProject.cta.caseStudy")}
               <svg
                 width="16"
                 height="16"
