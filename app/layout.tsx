@@ -31,7 +31,9 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <I18nProvider>
-          <LanguageToggle />
+          <header className="flex justify-end px-4 py-3 sm:px-6">
+            <LanguageToggle />
+          </header>
           {children}
         </I18nProvider>
       </body>

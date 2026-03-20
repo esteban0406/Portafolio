@@ -7,7 +7,7 @@ export function LanguageToggle() {
   const current = i18n.language?.startsWith("es") ? "es" : "en";
 
   return (
-    <div className="fixed top-4 right-4 z-50 flex items-center gap-1 rounded-lg border border-border bg-card px-3 py-1.5 font-mono text-xs">
+    <div className="flex items-center gap-1 rounded-lg border border-border bg-card px-3 py-1.5 font-mono text-xs">
       <button
         onClick={() => i18n.changeLanguage("en")}
         className={`px-1 transition-colors ${
