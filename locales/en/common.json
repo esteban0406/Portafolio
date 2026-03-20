@@ -1,0 +1,56 @@
+{
+  "hero": {
+    "availability": "Open to junior backend / full-stack opportunities",
+    "role": "Full-Stack Developer focused on scalable backend systems",
+    "valueProposition": "I build production-ready web applications with real-time features, scalable backend architectures, and automated CI/CD pipelines using modern DevOps practices.",
+    "signals": {
+      "realtime": "✔ Real-time systems",
+      "cicd": "✔ CI/CD automated",
+      "docker": "✔ Dockerized deployments"
+    },
+    "cta": {
+      "viewProjects": "View Projects",
+      "github": "GitHub",
+      "downloadCv": "Download CV"
+    }
+  },
+  "infrastructure": {
+    "title": "Infrastructure & DevOps",
+    "description": "Automated CI/CD pipeline with integrated testing that validates code quality, runs unit and end-to-end tests, and deploys containerized applications to a production VPS using GitHub Actions, Docker, and Nginx.",
+    "pipelineExplanation": "Every push to the {{branch}} branch triggers a CI workflow that runs quality checks, unit tests, and end-to-end tests before building a Docker image and deploying it to a Linux VPS server behind an Nginx reverse proxy.",
+    "viewWorkflow": "View CI/CD workflow →",
+    "steps": {
+      "codePush": { "title": "Code Push", "description": "GitHub Repository" },
+      "githubActions": { "title": "GitHub Actions", "description": "CI Workflow Trigger" },
+      "testQuality": { "title": "Test & Quality Gate", "description": "Quality, Unit & E2E Tests" },
+      "dockerBuild": { "title": "Docker Build", "description": "Containerized Image" },
+      "vpsDeployment": { "title": "VPS Deployment", "description": "Linux Production Server" },
+      "nginxProxy": { "title": "Nginx Proxy", "description": "Reverse Proxy Routing" }
+    },
+    "capabilities": [
+      "Automated builds on every push",
+      "Quality checks and CI test validation",
+      "Unit and end-to-end tests before merge",
+      "Dockerized production environment",
+      "Reverse proxy routing with Nginx",
+      "Live deployment on VPS server"
+    ]
+  },
+  "featuredProject": {
+    "sectionTitle": "Featured Engineering Project",
+    "technicalHighlight": "Full-stack real-time chat with voice rooms, RBAC, and production-grade deployment",
+    "description": "A full-stack real-time chat application with servers, channels, friendships, and role-based collaboration. Includes voice rooms via LiveKit, Google OAuth, media uploads, a demo mode with seeded content, and a layered test suite of 110+ automated tests.",
+    "keyFeaturesLabel": "Key Features",
+    "cta": {
+      "liveDemo": "Live Demo",
+      "caseStudy": "Architecture Case Study"
+    },
+    "features": [
+      "Real-time messaging and presence via Socket.IO",
+      "Voice and video rooms powered by LiveKit",
+      "JWT + Google OAuth authentication with RBAC",
+      "Servers, channels, friendships, and role management",
+      "Playwright + Jest test suite with CI/CD pipeline"
+    ]
+  }
+}

@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
 import { Button } from "./ui/Button";
 import Image from "next/image";
 
@@ -12,15 +15,13 @@ const techBadges = [
   "GitHub Actions",
 ];
 
-const features = [
-  "Real-time messaging and presence via Socket.IO",
-  "Voice and video rooms powered by LiveKit",
-  "JWT + Google OAuth authentication with RBAC",
-  "Servers, channels, friendships, and role management",
-  "Playwright + Jest test suite with CI/CD pipeline",
-];
-
 export function FeaturedProject() {
+  const { t } = useTranslation("common");
+
+  const features = t("featuredProject.features", {
+    returnObjects: true,
+  }) as string[];
+
   return (
     <section className="flex flex-col items-center gap-12 px-6 py-16 md:px-12 md:py-16 lg:px-20 lg:py-20">
       {/* Header */}
@@ -28,7 +29,7 @@ export function FeaturedProject() {
         <div className="h-0.5 w-12 rounded-full bg-accent" />
 
         <h2 className="text-center text-3xl font-bold text-foreground lg:text-4xl">
-          Featured Engineering Project
+          {t("featuredProject.sectionTitle")}
         </h2>
       </div>
 
@@ -55,8 +56,7 @@ export function FeaturedProject() {
 
           {/* Technical Highlight */}
           <p className="font-mono text-xs text-accent">
-            Full-stack real-time chat with voice rooms, RBAC, and
-            production-grade deployment
+            {t("featuredProject.technicalHighlight")}
           </p>
 
           {/* Tech stack */}
@@ -73,16 +73,13 @@ export function FeaturedProject() {
 
           {/* Description */}
           <p className="text-base leading-relaxed text-text-secondary">
-            A full-stack real-time chat application with servers, channels,
-            friendships, and role-based collaboration. Includes voice rooms via
-            LiveKit, Google OAuth, media uploads, a demo mode with seeded
-            content, and a layered test suite of 110+ automated tests.
+            {t("featuredProject.description")}
           </p>
 
           {/* Key Features */}
           <div className="flex flex-col gap-2">
             <h4 className="font-mono text-xs uppercase tracking-wide text-text-muted">
-              Key Features
+              {t("featuredProject.keyFeaturesLabel")}
             </h4>
 
             <ul className="flex flex-col gap-1 text-sm text-text-secondary">
@@ -95,7 +92,7 @@ export function FeaturedProject() {
           {/* Buttons */}
           <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:gap-3 md:gap-4">
             <Button href="https://esteban-discord-clone.duckdns.org/">
-              Live Demo
+              {t("featuredProject.cta.liveDemo")}
               <svg
                 width="16"
                 height="16"
@@ -114,7 +111,7 @@ export function FeaturedProject() {
             </Button>
 
             <Button href="/case-study/discord-clone" variant="outline">
-              Architecture Case Study
+              {t("featuredProject.cta.caseStudy")}
               <svg
                 width="16"
                 height="16"

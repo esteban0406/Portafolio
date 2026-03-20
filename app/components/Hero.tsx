@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
 import { Badge } from "./ui/Badge";
 
 const techStack = [
@@ -13,12 +16,14 @@ const techStack = [
 ];
 
 export function Hero() {
+  const { t } = useTranslation("common");
+
   return (
     <section className="flex min-h-screen flex-col items-center justify-center gap-6 px-6 py-16 md:px-12 md:py-20 lg:px-20 lg:py-24">
       {/* Availability badge */}
       <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 font-mono text-xs font-medium text-text-secondary">
         <span className="h-2 w-2 rounded-full bg-accent" />
-        Open to junior backend / full-stack opportunities
+        {t("hero.availability")}
       </span>
 
       {/* Name */}
@@ -28,21 +33,19 @@ export function Hero() {
 
       {/* Role */}
       <p className="text-center text-lg text-text-secondary md:text-xl lg:text-2xl">
-        Full-Stack Developer focused on scalable backend systems
+        {t("hero.role")}
       </p>
 
       {/* Value Proposition */}
       <p className="max-w-2xl text-center text-base leading-relaxed text-text-muted md:text-lg">
-        I build production-ready web applications with real-time features,
-        scalable backend architectures, and automated CI/CD pipelines using
-        modern DevOps practices.
+        {t("hero.valueProposition")}
       </p>
 
       {/* Quick credibility signals */}
       <div className="mt-2 flex flex-wrap justify-center gap-3 text-sm font-mono text-text-muted sm:gap-4 md:gap-6">
-        <span>✔ Real-time systems</span>
-        <span>✔ CI/CD automated</span>
-        <span>✔ Dockerized deployments</span>
+        <span>{t("hero.signals.realtime")}</span>
+        <span>{t("hero.signals.cicd")}</span>
+        <span>{t("hero.signals.docker")}</span>
       </div>
 
       {/* Tech stack */}
@@ -67,7 +70,7 @@ export function Hero() {
           href="#projects"
           className="rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-black transition hover:opacity-90"
         >
-          View Projects
+          {t("hero.cta.viewProjects")}
         </a>
 
         {/* Secondary CTA */}
@@ -76,7 +79,7 @@ export function Hero() {
           target="_blank"
           className="rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-muted"
         >
-          GitHub
+          {t("hero.cta.github")}
         </a>
 
         {/* Optional CTA */}
@@ -85,7 +88,7 @@ export function Hero() {
           download="Luis_Esteban_Pena_CV.pdf"
           className="rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-muted"
         >
-          Download CV
+          {t("hero.cta.downloadCv")}
         </a>
       </div>
     </section>

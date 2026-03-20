@@ -1,0 +1,179 @@
+{
+  "header": {
+    "backLink": "← Back to Home",
+    "title": "Case Study: Discol",
+    "description": "A technical deep dive into the architecture and engineering decisions behind a full-stack real-time chat platform with voice rooms, role-based permissions, and production-grade deployment.",
+    "links": {
+      "liveDemo": "Live Demo",
+      "github": "GitHub Repository"
+    }
+  },
+  "sections": {
+    "problem": {
+      "label": "PROBLEM",
+      "title": "Problem & Goals",
+      "body1": "Modern chat platforms feel simple on the surface, but they rely on a dense mix of systems behind the scenes: identity, real-time communication, permissions, presence, media, and deployment reliability. Most portfolio projects stop at the UI layer. The challenge was to go deeper.",
+      "body2": "The goal was to design and ship a complete real-time product — a system where users can register, connect with friends, join communities, chat instantly, manage roles and permissions, enter voice rooms, and interact with a guided demo experience. Just as importantly, the project had to reflect production-minded engineering practices: automated testing, containerized environments, and continuous delivery."
+    },
+    "solution": {
+      "label": "SOLUTION",
+      "title": "What Was Built",
+      "intro": "Discol is a full-stack real-time chat application built around servers, channels, friendships, and role-based collaboration. Users can sign up with email and password or Google OAuth, create servers, invite other users, organize conversations into text and voice channels, and manage server membership through roles and permissions.",
+      "features": [
+        {
+          "title": "Real-time Messaging",
+          "body": "Text messages delivered instantly via Socket.IO. Presence updates are pushed only to relevant users rather than broadcast globally."
+        },
+        {
+          "title": "Voice Rooms",
+          "body": "Channel-based audio and video sessions powered by LiveKit, accessible directly from within the application."
+        },
+        {
+          "title": "Role-based Permissions",
+          "body": "Explicit server permissions for channel creation, invite management, role management, and server deletion modeled in the database."
+        },
+        {
+          "title": "Media Uploads",
+          "body": "Profile avatar uploads through Cloudinary with cloud storage and serving."
+        },
+        {
+          "title": "Demo Mode",
+          "body": "Seeded content and a guided product tour so recruiters and reviewers can explore the product without populating it manually."
+        },
+        {
+          "title": "Localization",
+          "body": "English and Spanish language support built into the frontend interface."
+        }
+      ]
+    },
+    "design": {
+      "label": "DESIGN",
+      "title": "UI/UX Design Decisions",
+      "body1": "The interface was designed around familiar messaging patterns to minimize the learning curve for users. The layout follows a three-column structure consisting of server navigation, channel list, and active chat view.",
+      "body2": "A dark theme was chosen to improve readability during long messaging sessions and match the design conventions of modern collaboration tools.",
+      "imageAlt": "Discord Clone UI Mockup"
+    },
+    "architecture": {
+      "label": "ARCHITECTURE",
+      "title": "System Architecture",
+      "body1": "The frontend is a <strong>Next.js 16</strong> application using the App Router, React 19, and Tailwind CSS v4. It handles page routing, responsive UI, long-lived client state, and real-time event subscriptions. Shared contexts keep the interface synchronized as events arrive.",
+      "body2": "The backend is a <strong>NestJS 11</strong> modular monolith. Focused modules cover authentication, users, friendships, servers, roles, channels, messages, voice access, and real-time gateway events. All REST endpoints are exposed under <code>/api</code>, while Socket.IO runs alongside for low-latency messaging.",
+      "body3": "For data persistence, the app uses <strong>PostgreSQL</strong> with <strong>Prisma ORM</strong>. The schema models users, OAuth accounts, friendships, servers, invites, members, roles, channels, and messages. Role-based access control is enforced through explicit server permissions, keeping authorization rules visible and maintainable.",
+      "body4": "The real-time layer uses two communication patterns: channel rooms for chat fanout (only users in the active channel receive live messages) and user-specific rooms for private notifications like friend requests, server invites, and presence changes.",
+      "imageAlt": "System Architecture Diagram"
+    },
+    "auth": {
+      "label": "AUTHENTICATION",
+      "title": "Authentication Flow",
+      "steps": [
+        "1. User authenticates via REST API endpoint",
+        "2. Server generates and returns a JWT token",
+        "3. Client attaches the token during WebSocket handshake",
+        "4. WebSocket gateway validates authentication",
+        "5. Authenticated users join channel rooms"
+      ]
+    },
+    "realtime": {
+      "label": "REAL-TIME MESSAGING",
+      "title": "Message Flow",
+      "steps": [
+        "Client sends message through WebSocket gateway",
+        "Gateway validates user authentication",
+        "Message stored in PostgreSQL",
+        "Server broadcasts message to channel room",
+        "Connected clients receive update instantly"
+      ],
+      "imageAlt": "Message Flow Diagram"
+    },
+    "techStack": {
+      "label": "TECH STACK",
+      "title": "Technology Decisions",
+      "items": [
+        {
+          "category": "Frontend",
+          "items": "Next.js 16, React 19, Tailwind CSS v4",
+          "description": "App Router with server components, responsive layouts, long-lived client state, and real-time event subscriptions."
+        },
+        {
+          "category": "Backend",
+          "items": "NestJS 11, Prisma ORM, PostgreSQL",
+          "description": "Modular monolith with focused domain modules. Prisma models the full collaboration schema with explicit RBAC permissions."
+        },
+        {
+          "category": "Real-time",
+          "items": "Socket.IO",
+          "description": "Persistent bidirectional connections for instant message delivery and targeted user notifications."
+        },
+        {
+          "category": "Voice & Video",
+          "items": "LiveKit",
+          "description": "Channel-based audio and video sessions accessible directly from within the application."
+        },
+        {
+          "category": "Authentication",
+          "items": "JWT, Passport, Google OAuth 2.0",
+          "description": "Supports email/password registration and Google OAuth. JWTs are validated across both REST and WebSocket layers."
+        },
+        {
+          "category": "Media Storage",
+          "items": "Cloudinary",
+          "description": "Profile avatar uploads with cloud storage, allowing users to personalize their accounts."
+        },
+        {
+          "category": "Testing",
+          "items": "Jest, Supertest, Playwright",
+          "description": "Layered test strategy: frontend unit tests, backend unit and integration tests, and browser-level end-to-end specs."
+        },
+        {
+          "category": "DevOps",
+          "items": "Docker, Docker Compose, GitHub Actions, GHCR, VPS/SSH",
+          "description": "Multi-stage container builds, automated CI pipelines, and production deployment over SSH to a Linux VPS behind Nginx."
+        }
+      ]
+    },
+    "cicd": {
+      "label": "CI/CD PIPELINE",
+      "title": "Continuous Integration & Deployment",
+      "steps": [
+        "1. Code push triggers GitHub Actions workflow",
+        "2. Unit and end-to-end tests run automatically",
+        "3. Docker image is built",
+        "4. Container deployed to Linux VPS",
+        "5. Nginx routes traffic to the application"
+      ]
+    },
+    "challenges": {
+      "label": "CHALLENGES",
+      "title": "Challenges & Lessons Learned",
+      "items": [
+        {
+          "number": "01",
+          "title": "Making real-time features feel selective instead of noisy",
+          "body": "Messaging, status updates, channel changes, invites, and friendship actions all have different audiences. The solution was to separate channel-level events from user-level events — messages are emitted only to the relevant channel room, while friend and invite notifications are emitted directly to the affected users. This kept the real-time layer clean and closer to how a production chat system should behave."
+        },
+        {
+          "number": "02",
+          "title": "Keeping authorization understandable as features expanded",
+          "body": "As soon as server management was added, authorization became more complex than simple ownership checks. Channel creation, role management, inviting users, renaming a server, and removing members all needed explicit rules. Instead of scattering those checks across controllers and services, a dedicated permission system was modeled in Prisma and enforced through NestJS guards — giving the project a clear RBAC story that is easy to explain and extend."
+        },
+        {
+          "number": "03",
+          "title": "Verifying a real-time product across multiple layers",
+          "body": "A real-time app can appear to work while hiding fragile behavior across API flows, sockets, and UI state. To reduce that risk, a layered test strategy was built: backend unit tests for service and module logic, backend integration tests against a real PostgreSQL database, frontend unit tests for components and client utilities, and Playwright end-to-end tests that boot the full stack in Docker. That approach gave the project much stronger credibility than a visual demo alone."
+        }
+      ]
+    },
+    "results": {
+      "label": "RESULTS",
+      "title": "Outcomes",
+      "body1": "Discol became a strong end-to-end case study in building and shipping a modern real-time product. It demonstrates full-stack ownership across product design, domain modeling, authentication, authorization, WebSocket workflows, voice integration, media uploads, internationalization, testing, and deployment.",
+      "body2": "All tests run automatically in GitHub Actions pipelines that gate pull requests before deployment — making the project not just a feature demo, but a credible example of engineering quality and delivery from start to finish.",
+      "stats": {
+        "frontendTests": "Frontend unit tests",
+        "backendUnitTests": "Backend unit tests",
+        "backendIntTests": "Backend integration tests",
+        "e2eSpecs": "Playwright e2e specs"
+      }
+    }
+  }
+}

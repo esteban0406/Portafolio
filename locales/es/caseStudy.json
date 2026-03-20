@@ -1,0 +1,179 @@
+{
+  "header": {
+    "backLink": "← Volver al inicio",
+    "title": "Caso de estudio: Discol",
+    "description": "Un análisis técnico profundo de la arquitectura y las decisiones de ingeniería detrás de una plataforma de chat en tiempo real full-stack con salas de voz, permisos basados en roles y despliegue en producción.",
+    "links": {
+      "liveDemo": "Demo en vivo",
+      "github": "Repositorio GitHub"
+    }
+  },
+  "sections": {
+    "problem": {
+      "label": "PROBLEMA",
+      "title": "Problema y objetivos",
+      "body1": "Las plataformas de chat modernas parecen simples en la superficie, pero dependen de una combinación densa de sistemas: identidad, comunicación en tiempo real, permisos, presencia, medios y fiabilidad del despliegue. La mayoría de los proyectos de portafolio se detienen en la capa de UI. El reto era ir más profundo.",
+      "body2": "El objetivo era diseñar y lanzar un producto en tiempo real completo — un sistema donde los usuarios puedan registrarse, conectarse con amigos, unirse a comunidades, chatear al instante, gestionar roles y permisos, entrar a salas de voz e interactuar con una experiencia de demo guiada. Igualmente importante, el proyecto debía reflejar prácticas de ingeniería orientadas a producción: pruebas automatizadas, entornos contenerizados y entrega continua."
+    },
+    "solution": {
+      "label": "SOLUCIÓN",
+      "title": "Lo que se construyó",
+      "intro": "Discol es una aplicación de chat en tiempo real full-stack construida alrededor de servidores, canales, amistades y colaboración basada en roles. Los usuarios pueden registrarse con correo y contraseña o Google OAuth, crear servidores, invitar a otros usuarios, organizar conversaciones en canales de texto y voz, y gestionar la membresía del servidor mediante roles y permisos.",
+      "features": [
+        {
+          "title": "Mensajería en tiempo real",
+          "body": "Mensajes de texto entregados al instante vía Socket.IO. Las actualizaciones de presencia se envían solo a los usuarios relevantes en lugar de difundirse globalmente."
+        },
+        {
+          "title": "Salas de voz",
+          "body": "Sesiones de audio y video por canal con LiveKit, accesibles directamente desde la aplicación."
+        },
+        {
+          "title": "Permisos basados en roles",
+          "body": "Permisos explícitos del servidor para creación de canales, gestión de invitaciones, gestión de roles y eliminación del servidor, modelados en la base de datos."
+        },
+        {
+          "title": "Subida de archivos",
+          "body": "Subida de avatares de perfil mediante Cloudinary con almacenamiento y servicio en la nube."
+        },
+        {
+          "title": "Modo demo",
+          "body": "Contenido precargado y un recorrido guiado del producto para que reclutadores y revisores puedan explorar el producto sin necesidad de llenarlo manualmente."
+        },
+        {
+          "title": "Localización",
+          "body": "Soporte de idiomas en inglés y español integrado en la interfaz del frontend."
+        }
+      ]
+    },
+    "design": {
+      "label": "DISEÑO",
+      "title": "Decisiones de diseño UI/UX",
+      "body1": "La interfaz fue diseñada en torno a patrones de mensajería conocidos para minimizar la curva de aprendizaje de los usuarios. El diseño sigue una estructura de tres columnas: navegación de servidores, lista de canales y vista de chat activa.",
+      "body2": "Se eligió un tema oscuro para mejorar la legibilidad en sesiones de mensajería largas y coincidir con las convenciones de diseño de las herramientas de colaboración modernas.",
+      "imageAlt": "Mockup de interfaz del clon de Discord"
+    },
+    "architecture": {
+      "label": "ARQUITECTURA",
+      "title": "Arquitectura del sistema",
+      "body1": "El frontend es una aplicación de <strong>Next.js 16</strong> que usa App Router, React 19 y Tailwind CSS v4. Gestiona el enrutamiento de páginas, UI responsiva, estado del cliente de larga duración y suscripciones de eventos en tiempo real. Los contextos compartidos mantienen la interfaz sincronizada a medida que llegan los eventos.",
+      "body2": "El backend es un monolito modular de <strong>NestJS 11</strong>. Los módulos enfocados cubren autenticación, usuarios, amistades, servidores, roles, canales, mensajes, acceso a voz y eventos del gateway en tiempo real. Todos los endpoints REST se exponen bajo <code>/api</code>, mientras que Socket.IO corre en paralelo para mensajería de baja latencia.",
+      "body3": "Para la persistencia de datos, la aplicación usa <strong>PostgreSQL</strong> con <strong>Prisma ORM</strong>. El esquema modela usuarios, cuentas OAuth, amistades, servidores, invitaciones, miembros, roles, canales y mensajes. El control de acceso basado en roles se aplica mediante permisos explícitos del servidor, manteniendo las reglas de autorización visibles y mantenibles.",
+      "body4": "La capa en tiempo real usa dos patrones de comunicación: salas de canal para difusión de chat (solo los usuarios en el canal activo reciben mensajes en vivo) y salas específicas de usuario para notificaciones privadas como solicitudes de amistad, invitaciones a servidores y cambios de presencia.",
+      "imageAlt": "Diagrama de arquitectura del sistema"
+    },
+    "auth": {
+      "label": "AUTENTICACIÓN",
+      "title": "Flujo de autenticación",
+      "steps": [
+        "1. El usuario se autentica vía endpoint REST",
+        "2. El servidor genera y devuelve un token JWT",
+        "3. El cliente adjunta el token durante el handshake de WebSocket",
+        "4. El gateway de WebSocket valida la autenticación",
+        "5. Los usuarios autenticados se unen a las salas de canal"
+      ]
+    },
+    "realtime": {
+      "label": "MENSAJERÍA EN TIEMPO REAL",
+      "title": "Flujo de mensajes",
+      "steps": [
+        "El cliente envía el mensaje a través del gateway WebSocket",
+        "El gateway valida la autenticación del usuario",
+        "El mensaje se almacena en PostgreSQL",
+        "El servidor difunde el mensaje a la sala del canal",
+        "Los clientes conectados reciben la actualización al instante"
+      ],
+      "imageAlt": "Diagrama de flujo de mensajes"
+    },
+    "techStack": {
+      "label": "TECNOLOGÍAS",
+      "title": "Decisiones tecnológicas",
+      "items": [
+        {
+          "category": "Frontend",
+          "items": "Next.js 16, React 19, Tailwind CSS v4",
+          "description": "App Router con server components, layouts responsivos, estado del cliente de larga duración y suscripciones de eventos en tiempo real."
+        },
+        {
+          "category": "Backend",
+          "items": "NestJS 11, Prisma ORM, PostgreSQL",
+          "description": "Monolito modular con módulos de dominio enfocados. Prisma modela el esquema completo de colaboración con permisos RBAC explícitos."
+        },
+        {
+          "category": "Tiempo real",
+          "items": "Socket.IO",
+          "description": "Conexiones bidireccionales persistentes para entrega instantánea de mensajes y notificaciones dirigidas a usuarios."
+        },
+        {
+          "category": "Voz y video",
+          "items": "LiveKit",
+          "description": "Sesiones de audio y video por canal accesibles directamente desde la aplicación."
+        },
+        {
+          "category": "Autenticación",
+          "items": "JWT, Passport, Google OAuth 2.0",
+          "description": "Soporta registro con correo/contraseña y Google OAuth. Los JWT se validan en las capas REST y WebSocket."
+        },
+        {
+          "category": "Almacenamiento de medios",
+          "items": "Cloudinary",
+          "description": "Subida de avatares de perfil con almacenamiento en la nube, permitiendo a los usuarios personalizar sus cuentas."
+        },
+        {
+          "category": "Pruebas",
+          "items": "Jest, Supertest, Playwright",
+          "description": "Estrategia de pruebas en capas: pruebas unitarias de frontend, pruebas unitarias e integración de backend y specs end-to-end a nivel de navegador."
+        },
+        {
+          "category": "DevOps",
+          "items": "Docker, Docker Compose, GitHub Actions, GHCR, VPS/SSH",
+          "description": "Builds multi-etapa, pipelines CI automatizados y despliegue en producción vía SSH a un VPS Linux detrás de Nginx."
+        }
+      ]
+    },
+    "cicd": {
+      "label": "PIPELINE CI/CD",
+      "title": "Integración y despliegue continuos",
+      "steps": [
+        "1. El push de código dispara el flujo de GitHub Actions",
+        "2. Las pruebas unitarias y end-to-end se ejecutan automáticamente",
+        "3. Se construye la imagen Docker",
+        "4. El contenedor se despliega en el VPS Linux",
+        "5. Nginx enruta el tráfico a la aplicación"
+      ]
+    },
+    "challenges": {
+      "label": "DESAFÍOS",
+      "title": "Desafíos y lecciones aprendidas",
+      "items": [
+        {
+          "number": "01",
+          "title": "Hacer que las funcionalidades en tiempo real se sientan selectivas en lugar de ruidosas",
+          "body": "Los mensajes, actualizaciones de estado, cambios de canal, invitaciones y acciones de amistad tienen audiencias diferentes. La solución fue separar los eventos a nivel de canal de los eventos a nivel de usuario — los mensajes se emiten solo a la sala del canal relevante, mientras que las notificaciones de amigos e invitaciones se emiten directamente a los usuarios afectados. Esto mantuvo la capa en tiempo real limpia y más cercana a cómo debería comportarse un sistema de chat en producción."
+        },
+        {
+          "number": "02",
+          "title": "Mantener la autorización comprensible a medida que se expandían las funcionalidades",
+          "body": "En cuanto se añadió la gestión de servidores, la autorización se volvió más compleja que simples verificaciones de propiedad. La creación de canales, gestión de roles, invitación de usuarios, renombrado de servidores y eliminación de miembros necesitaban reglas explícitas. En lugar de dispersar esas verificaciones por controladores y servicios, se modeló un sistema de permisos dedicado en Prisma y se aplicó mediante guards de NestJS, dando al proyecto una clara historia de RBAC fácil de explicar y extender."
+        },
+        {
+          "number": "03",
+          "title": "Verificar un producto en tiempo real en múltiples capas",
+          "body": "Una aplicación en tiempo real puede parecer que funciona mientras oculta comportamientos frágiles en flujos de API, sockets y estado de UI. Para reducir ese riesgo, se construyó una estrategia de pruebas en capas: pruebas unitarias de backend para lógica de servicios y módulos, pruebas de integración de backend contra una base de datos PostgreSQL real, pruebas unitarias de frontend para componentes y utilidades del cliente, y pruebas end-to-end con Playwright que arrancan el stack completo en Docker. Ese enfoque dio al proyecto una credibilidad mucho mayor que una demo visual por sí sola."
+        }
+      ]
+    },
+    "results": {
+      "label": "RESULTADOS",
+      "title": "Resultados",
+      "body1": "Discol se convirtió en un caso de estudio end-to-end sólido sobre cómo construir y lanzar un producto en tiempo real moderno. Demuestra propiedad full-stack en diseño de producto, modelado de dominio, autenticación, autorización, flujos WebSocket, integración de voz, subida de medios, internacionalización, pruebas y despliegue.",
+      "body2": "Todas las pruebas se ejecutan automáticamente en pipelines de GitHub Actions que bloquean los pull requests antes del despliegue — haciendo del proyecto no solo una demo de funcionalidades, sino un ejemplo creíble de calidad de ingeniería y entrega de principio a fin.",
+      "stats": {
+        "frontendTests": "Pruebas unitarias de frontend",
+        "backendUnitTests": "Pruebas unitarias de backend",
+        "backendIntTests": "Pruebas de integración de backend",
+        "e2eSpecs": "Specs e2e de Playwright"
+      }
+    }
+  }
+}
