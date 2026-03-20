@@ -1,21 +1,23 @@
 import { Button } from "./ui/Button";
+import Image from "next/image";
 
 const techBadges = [
-  "Next.js",
-  "NestJS",
-  "WebSockets",
+  "Next.js 16",
+  "NestJS 11",
+  "Socket.IO",
   "PostgreSQL",
+  "Prisma ORM",
+  "LiveKit",
   "Docker",
-  "Nginx",
   "GitHub Actions",
 ];
 
 const features = [
-  "Real-time messaging via WebSockets",
-  "JWT authentication and role-based access control",
-  "Channel-based messaging system",
-  "Containerized deployment with Docker",
-  "Automated CI/CD pipeline",
+  "Real-time messaging and presence via Socket.IO",
+  "Voice and video rooms powered by LiveKit",
+  "JWT + Google OAuth authentication with RBAC",
+  "Servers, channels, friendships, and role management",
+  "Playwright + Jest test suite with CI/CD pipeline",
 ];
 
 export function FeaturedProject() {
@@ -35,19 +37,26 @@ export function FeaturedProject() {
         {/* Screenshot */}
         <div className="flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-card md:w-3/5">
           <span className="font-mono text-sm text-text-muted">
-            Project Screenshot
+            <Image
+                        src="/images/mockup.png"
+                        alt="Discord Clone UI Mockup"
+                        width={1512}
+                        height={787}
+                        loading="lazy"
+                        className="w-full h-auto"
+                      />
           </span>
         </div>
 
         {/* Info */}
         <div className="flex flex-col gap-6 md:w-2/5">
           {/* Title */}
-          <h3 className="text-3xl font-bold text-foreground">Discord Clone</h3>
+          <h3 className="text-3xl font-bold text-foreground">Discol</h3>
 
           {/* Technical Highlight */}
           <p className="font-mono text-xs text-accent">
-            Real-time messaging architecture with WebSockets and automated CI/CD
-            deployment
+            Full-stack real-time chat with voice rooms, RBAC, and
+            production-grade deployment
           </p>
 
           {/* Tech stack */}
@@ -64,10 +73,10 @@ export function FeaturedProject() {
 
           {/* Description */}
           <p className="text-base leading-relaxed text-text-secondary">
-            A real-time messaging platform inspired by Discord that supports
-            channels, direct messaging, and role-based access control. Built
-            with WebSocket communication, a NestJS backend API, and a
-            containerized deployment pipeline using Docker and Nginx.
+            A full-stack real-time chat application with servers, channels,
+            friendships, and role-based collaboration. Includes voice rooms via
+            LiveKit, Google OAuth, media uploads, a demo mode with seeded
+            content, and a layered test suite of 110+ automated tests.
           </p>
 
           {/* Key Features */}

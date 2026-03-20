@@ -15,7 +15,6 @@ const techStack = [
 export function Hero() {
   return (
     <section className="flex min-h-screen flex-col items-center justify-center gap-6 px-6 py-16 md:px-12 md:py-20 lg:px-20 lg:py-24">
-      
       {/* Availability badge */}
       <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 font-mono text-xs font-medium text-text-secondary">
         <span className="h-2 w-2 rounded-full bg-accent" />
@@ -63,7 +62,6 @@ export function Hero() {
 
       {/* CTA Buttons */}
       <div className="mt-6 flex flex-col gap-4 sm:flex-row">
-        
         {/* Primary CTA */}
         <a
           href="#projects"
@@ -83,12 +81,12 @@ export function Hero() {
 
         {/* Optional CTA */}
         <a
-          href="/cv.pdf"
-          className="rounded-lg border border-border px-6 py-3 text-sm font-semibold text-text-secondary transition hover:bg-muted"
+          href="/documents/cv.pdf"
+          download="Luis_Esteban_Pena_CV.pdf"
+          className="rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-muted"
         >
           Download CV
         </a>
-
       </div>
     </section>
   );
