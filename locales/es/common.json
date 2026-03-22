@@ -9,6 +9,7 @@
       "docker": "✔ Despliegues con Docker"
     },
     "cta": {
+      "contactMe": "Contáctame",
       "viewProjects": "Ver Proyectos",
       "github": "GitHub",
       "downloadCv": "Descargar CV"
@@ -35,6 +36,22 @@
       "Enrutamiento por proxy inverso con Nginx",
       "Despliegue en vivo en servidor VPS"
     ]
+  },
+  "contact": {
+    "title": "Contáctame",
+    "subtitle": "¿Tienes un proyecto en mente, una pregunta o simplemente quieres conectar? Envíame un mensaje y te responderé pronto.",
+    "form": {
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Tu nombre",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@email.com",
+      "messageLabel": "Mensaje",
+      "messagePlaceholder": "Cuéntame sobre tu proyecto o pregunta...",
+      "submit": "Enviar mensaje",
+      "submitting": "Enviando..."
+    },
+    "success": "Tu mensaje fue enviado correctamente. ¡Me pondré en contacto pronto!",
+    "error": "Algo salió mal. Por favor intenta de nuevo o contáctame directamente."
   },
   "featuredProject": {
     "sectionTitle": "Proyecto de ingeniería destacado",

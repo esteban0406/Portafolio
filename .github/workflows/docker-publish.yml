@@ -61,8 +61,13 @@ jobs:
           host: ${{ secrets.VPS_IP }}
           username: esteban
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: RESEND_API_KEY,IMAGE_NAME
           script: |
             cd ~/apps/portafolio
-            docker compose pull
-            docker compose up -d
+            printf 'RESEND_API_KEY=%s\nIMAGE_NAME=%s\n' "$RESEND_API_KEY" "$IMAGE_NAME" > .env
+            docker compose -f docker-compose.prod.yml pull
+            docker compose -f docker-compose.prod.yml up -d
             docker image prune -f
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          IMAGE_NAME: ${{ github.repository }}
