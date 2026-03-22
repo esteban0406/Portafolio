@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Luis Esteban Peña — Developer Portfolio
 
-## Getting Started
+Personal portfolio showcasing my projects, technical skills, and engineering approach as a junior software developer focused on backend and full-stack development.
 
-First, run the development server:
+**Live site:** [esteban-portafolio.duckdns.org](https://esteban-portafolio.duckdns.org)
+
+---
+
+## About Me
+
+I'm a junior software developer based in Bogotá, Colombia, currently completing a B.Sc. in Computer Science & Artificial Intelligence Engineering at Sergio Arboleda University (graduating 2026).
+
+I build backend-first, full-stack applications with a strong emphasis on authentication systems, real-time features, testing, and CI/CD. Fluent in English and Spanish.
+
+---
+
+## What's Inside
+
+| Section | Description |
+|---|---|
+| **Hero** | Overview of my role, tech stack, and availability |
+| **Featured Project** | In-depth look at Discol, my main full-stack project |
+| **Infrastructure** | CI/CD pipeline and DevOps workflow walkthrough |
+| **Case Study** | Detailed breakdown of architecture, decisions, and challenges |
+
+---
+
+## Featured Project — Real-Time Chat App (Discol)
+
+A full-stack Discord-inspired chat platform built and deployed from scratch.
+
+- **Live demo:** [esteban-discord-clone.duckdns.org](https://esteban-discord-clone.duckdns.org/)
+- **Repository:** [github.com/esteban0406/Chat-App](https://github.com/esteban0406/Chat-App)
+
+**Highlights:**
+- Real-time messaging and presence via Socket.IO
+- Voice/video rooms powered by LiveKit
+- Secure auth: email/password, Google OAuth 2.0, JWT sessions
+- Role-Based Access Control (RBAC) across servers, roles, and channels
+- 100+ automated tests (Jest, Supertest, Playwright)
+- Deployed with Docker, Nginx, and GitHub Actions CI/CD on a VPS
+
+**Stack:** NestJS · Next.js · PostgreSQL · Prisma · Socket.IO · LiveKit · Docker · GitHub Actions
+
+---
+
+## Portfolio Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| UI | React 19 + Tailwind CSS v4 |
+| Language | TypeScript |
+| i18n | i18next (English / Spanish) |
+
+---
+
+## Run Locally
 
 ```bash
+git clone https://github.com/esteban0406/Portafolio.git
+cd Portafolio
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contact
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| | |
+|---|---|
+| Email | luisesteban0406@gmail.com |
+| LinkedIn | [luis-esteban-peña-rodriguez](https://linkedin.com/in/luis-esteban-peña-rodriguez-808b9b151) |
+| GitHub | [github.com/esteban0406](https://github.com/esteban0406) |
+| CV | [Download PDF](./public/documents/cv.pdf) |

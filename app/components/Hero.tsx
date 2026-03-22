@@ -2,6 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import { Badge } from "./ui/Badge";
+import { Button } from "./ui/Button";
 
 const techStack = [
   { label: "HTML", icon: "<>" },
@@ -64,32 +65,41 @@ export function Hero() {
       </div>
 
       {/* CTA Buttons */}
-      <div className="mt-6 flex flex-col gap-4 sm:flex-row">
-        {/* Primary CTA */}
-        <a
-          href="#projects"
-          className="rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-black transition hover:opacity-90"
-        >
-          {t("hero.cta.viewProjects")}
-        </a>
+      <div className="mt-6 flex flex-col items-center gap-4">
+        {/* Group 1: Main actions */}
+        <div className="flex flex-row gap-3">
+          <Button href="#contact" variant="primary">
+            {t("hero.cta.contactMe")}
+          </Button>
+          <Button href="#projects" variant="outline">
+            {t("hero.cta.viewProjects")}
+          </Button>
+        </div>
 
-        {/* Secondary CTA */}
-        <a
-          href="https://github.com/esteban0406"
-          target="_blank"
-          className="rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-muted"
-        >
-          {t("hero.cta.github")}
-        </a>
-
-        {/* Optional CTA */}
-        <a
-          href="/documents/cv.pdf"
-          download="Luis_Esteban_Pena_CV.pdf"
-          className="rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-muted"
-        >
-          {t("hero.cta.downloadCv")}
-        </a>
+        {/* Group 2: Social links */}
+        <div className="flex flex-row gap-2">
+          <Button
+            href="https://github.com/esteban0406"
+            variant="ghost"
+            external
+          >
+            {t("hero.cta.github")}
+          </Button>
+          <Button
+            href="https://linkedin.com/in/luis-esteban-pe%C3%B1a-rodriguez-808b9b151"
+            variant="ghost"
+            external
+          >
+            LinkedIn
+          </Button>
+          <Button
+            href="/documents/cv.pdf"
+            variant="ghost"
+            download="Luis_Esteban_Pena_CV.pdf"
+          >
+            {t("hero.cta.downloadCv")}
+          </Button>
+        </div>
       </div>
     </section>
   );
