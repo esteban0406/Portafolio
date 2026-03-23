@@ -65,8 +65,8 @@ jobs:
           script: |
             cd ~/apps/portafolio
             printf 'RESEND_API_KEY=%s\nIMAGE_NAME=%s\n' "$RESEND_API_KEY" "$IMAGE_NAME" > .env
-            docker compose -f docker-compose.prod.yml pull
-            docker compose -f docker-compose.prod.yml up -d
+            docker compose -f docker-compose.yml pull
+            docker compose -f docker-compose.yml up -d
             docker image prune -f
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
