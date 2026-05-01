@@ -53,6 +53,22 @@
     "success": "Tu mensaje fue enviado correctamente. ¡Me pondré en contacto pronto!",
     "error": "Algo salió mal. Por favor intenta de nuevo o contáctame directamente."
   },
+  "jobAI": {
+    "technicalHighlight": "Búsqueda de empleo con IA y RAG: embeddings vectoriales, streaming de LLM y aumentación de currículum",
+    "description": "Una bolsa de trabajo nativa de IA que usa Generación Aumentada por Recuperación para que los candidatos consulten ofertas en lenguaje natural. Incluye un copiloto de IA con streaming en tiempo real, búsqueda semántica enriquecida con el currículum, ingestión automatizada desde múltiples fuentes y autenticación con cookies httpOnly.",
+    "keyFeaturesLabel": "Funcionalidades clave",
+    "cta": {
+      "liveDemo": "Demo en vivo",
+      "caseStudy": "Caso de estudio de arquitectura"
+    },
+    "features": [
+      "Pipeline RAG con búsqueda semántica pgvector y streaming de LLM vía SSE",
+      "Aumentación de currículum — el contenido del CV mejora la relevancia de búsqueda en tiempo de consulta",
+      "Ingestión de empleos desde múltiples fuentes con deduplicación SHA-256 y cron de 6 horas",
+      "Clasificador de consultas regex-first que enruta a recuperación, agregación o modo híbrido",
+      "Autenticación con cookies httpOnly, estado cliente con Zustand y actualizaciones optimistas"
+    ]
+  },
   "featuredProject": {
     "sectionTitle": "Proyecto de ingeniería destacado",
     "technicalHighlight": "Chat en tiempo real full-stack con salas de voz, RBAC y despliegue en producción",

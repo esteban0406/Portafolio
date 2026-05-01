@@ -39,13 +39,13 @@ export function FeaturedProject() {
         <div className="flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-card md:w-3/5">
           <span className="font-mono text-sm text-text-muted">
             <Image
-                        src="/images/mockup.png"
-                        alt="Discord Clone UI Mockup"
-                        width={1512}
-                        height={787}
-                        loading="lazy"
-                        className="w-full h-auto"
-                      />
+              src="/images/mockup.png"
+              alt="Discord Clone UI Mockup"
+              width={1512}
+              height={787}
+              loading="lazy"
+              className="w-full h-auto"
+            />
           </span>
         </div>
 

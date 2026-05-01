@@ -53,6 +53,22 @@
     "success": "Your message was sent successfully. I'll get back to you soon!",
     "error": "Something went wrong. Please try again or contact me directly."
   },
+  "jobAI": {
+    "technicalHighlight": "RAG-powered AI job search with vector embeddings, LLM streaming, and resume augmentation",
+    "description": "An AI-native job board that uses Retrieval-Augmented Generation to let candidates query job postings in natural language. Features an AI copilot with real-time streaming, resume-aware semantic search, automated ingestion from multiple sources, and httpOnly cookie auth.",
+    "keyFeaturesLabel": "Key Features",
+    "cta": {
+      "liveDemo": "Live Demo",
+      "caseStudy": "Architecture Case Study"
+    },
+    "features": [
+      "RAG pipeline with pgvector semantic search and LLM streaming via SSE",
+      "Resume augmentation — resume content boosts query relevance at search time",
+      "Multi-source job ingestion with SHA-256 dedup and 6-hour cron schedule",
+      "Regex-first query classifier routes to retrieval, aggregation, or hybrid",
+      "httpOnly cookie auth with Zustand client state and optimistic UI updates"
+    ]
+  },
   "featuredProject": {
     "sectionTitle": "Featured Engineering Project",
     "technicalHighlight": "Full-stack real-time chat with voice rooms, RBAC, and production-grade deployment",
