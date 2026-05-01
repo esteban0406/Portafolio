@@ -1,0 +1,188 @@
+{
+  "header": {
+    "backLink": "← Back to Home",
+    "title": "Case Study: JobAI",
+    "description": "A technical deep dive into the RAG pipeline, query classification, data ingestion, and frontend architecture behind an AI-native job board with semantic search and LLM streaming.",
+    "links": {
+      "liveDemo": "Live Demo",
+      "github": "GitHub Repository"
+    }
+  },
+  "sections": {
+    "problem": {
+      "label": "PROBLEM",
+      "title": "Problem & Goals",
+      "body1": "Remote job searching is fragmented across dozens of platforms, each with its own filters, formats, and ranking logic. Candidates end up copy-pasting queries across tabs, manually scanning listings that rarely match what they actually described, and losing context between sessions. Traditional keyword search has no understanding of intent — searching for \"senior backend engineer with Rust experience\" returns the same kind of noise as any plain-text search engine.",
+      "body2": "The goal was to build a job board where the search experience is powered by AI — not as a chatbot wrapper, but as a genuine retrieval engine. The AI copilot needed to understand what the user meant, augment queries with their resume context, classify the type of request, and stream a grounded answer back in real time. The system also had to ingest job postings automatically, deduplicate them reliably, and stay updated without manual intervention."
+    },
+    "solution": {
+      "label": "SOLUTION",
+      "title": "What Was Built",
+      "intro": "JobAI is a full-stack AI-powered job board built across three layers: a Next.js 16 frontend using RSC and client components in a deliberate split, a NestJS 11 backend with eight focused modules, and a single PostgreSQL database extended with the pgvector extension for vector similarity search.",
+      "features": [
+        {
+          "title": "AI Copilot with Streaming",
+          "body": "An LLM-powered assistant that answers job-search queries in real time, streaming responses token by token via Server-Sent Events."
+        },
+        {
+          "title": "Resume Augmentation",
+          "body": "Uploaded resumes are parsed and their content is injected into the retrieval query at search time, boosting semantic relevance without retraining any model."
+        },
+        {
+          "title": "Semantic Vector Search",
+          "body": "Job postings are embedded into a pgvector index. Queries are embedded at runtime and matched by cosine similarity against the stored vectors."
+        },
+        {
+          "title": "Query Classification",
+          "body": "A multi-stage classifier routes each query to the right handler: direct retrieval, SQL aggregation, or a hybrid of both."
+        },
+        {
+          "title": "Automated Ingestion",
+          "body": "A cron job runs every 6 hours, fetches postings from three external sources, deduplicates by SHA-256 content hash, and persists only new records."
+        },
+        {
+          "title": "httpOnly Auth",
+          "body": "Authentication uses httpOnly cookies for token storage, eliminating XSS exposure of credentials while keeping the session experience seamless."
+        }
+      ]
+    },
+    "architecture": {
+      "label": "ARCHITECTURE",
+      "title": "System Architecture",
+      "body1": "The frontend separates React Server Components from Client Components at a deliberate boundary. Pages and layout shells are server-rendered for fast initial load and SEO; interactive features — the AI chat panel, filters, resume upload — are isolated as client components that hydrate independently.",
+      "body2": "The backend is a NestJS 11 modular monolith with eight modules: Auth, Users, Jobs, RAG, Embedding, LLM, Ingestion, and Resume. Each module owns its own controllers, services, and repository layer. The RAG and Embedding modules share access to the pgvector-enabled PostgreSQL database through Prisma.",
+      "body3": "There is no separate vector database. PostgreSQL with the pgvector extension serves as the single source of truth for both relational job data and vector embeddings. This simplifies the infrastructure, reduces operational overhead, and keeps transactions within one system."
+    },
+    "ragPipeline": {
+      "label": "RAG PIPELINE",
+      "title": "AI Core: RAG Pipeline",
+      "steps": [
+        "1. Resume Augmentation — the user's uploaded resume is parsed and key skills, titles, and experience phrases are extracted. These are prepended to the query before embedding, so the vector search is personalized to the candidate's profile without any model fine-tuning.",
+        "2. Embed — the augmented query string is embedded using the configured provider (Google Gemini in production, Ollama e5-base-v2 in development). The resulting vector is a dense 768-dimensional float array.",
+        "3. Vector Search — the embedded query is matched against the pgvector index using cosine similarity. The top 15 most semantically relevant chunks are retrieved, grouped by job, and the top 5 unique jobs are assembled into context.",
+        "4. Field Detection — before the final prompt is built, a pass checks what the user is asking about. If the query mentions salary, requirements, or benefits and the retrieved chunks don't include that data, the system automatically appends the structured field from the job record — ensuring the LLM synthesizes from data that is actually present.",
+        "5. LLM Streaming — the retrieved context and the original user query are assembled into a prompt and sent to Groq's Llama-4-Scout model. The response is streamed back token by token via Server-Sent Events to the frontend, giving the user real-time visual feedback."
+      ]
+    },
+    "queryClassification": {
+      "label": "QUERY CLASSIFICATION",
+      "title": "Query Classification",
+      "steps": [
+        "1. Regex Fast Path — before any LLM call, a set of regular expressions checks for aggregation intent (queries like \"how many\", \"average salary\", \"most common\"). If a pattern matches, the query is immediately routed to the SQL aggregation handler without spending a token.",
+        "2. LLM Classifier — if the regex fast path produces no match, the query is sent to a lightweight LLM prompt that classifies it as one of three types: retrieval (semantic job search), aggregation (statistical summary), or hybrid (semantic results with an aggregate insight layered on top).",
+        "3. Handler Routing — based on the classification, the query is dispatched to the correct handler: the vector search + RAG pipeline for retrieval, a structured SQL query template for aggregation, or a combined execution path for hybrid queries that merges both results before streaming."
+      ]
+    },
+    "dataIngestion": {
+      "label": "DATA INGESTION",
+      "title": "Data Ingestion Pipeline",
+      "steps": [
+        "1. Scheduled Cron — a NestJS cron job triggers every 6 hours. It fans out requests to three external job posting sources in parallel — Remotive, Jobicy, and Findwork — normalizing each source's schema into a shared internal format.",
+        "2. SHA-256 Deduplication — each normalized posting is hashed by its content (title + company + description digest). If the hash already exists in the database, the posting is skipped. This ensures idempotent runs with zero duplicate records regardless of how often the cron fires.",
+        "3. LLM Parse — new postings with unstructured descriptions are passed through a structured extraction prompt (~125 lines) that asks the model to pull out title, company, skills, responsibilities, requirements, benefits, and salary. The model is explicitly instructed not to infer: if a field is not present, it returns null.",
+        "4. Structured Chunks — each posting is split into typed semantic chunks aligned to its fields: an identity chunk (title, company, location, summary), a requirements chunk, a responsibilities chunk, and a benefits chunk. Each chunk is embedded independently to maximize retrieval precision for field-specific queries.",
+        "5. Sliding Window Fallback — for postings where field extraction fails, a sliding window chunker splits the raw description text into overlapping 800-character windows and embeds each window. This ensures every posting is searchable even if the structured parse step fails."
+      ]
+    },
+    "frontend": {
+      "label": "FRONTEND",
+      "title": "Frontend Architecture",
+      "body1": "The Next.js 16 frontend uses a deliberate RSC/Client split. Pages that primarily display data — the jobs list, the profile page — are Server Components that fetch from the backend on the server, keeping tokens out of the browser entirely. Interactive elements — filters, the AI panel, save toggles — are Client Components mounted on top of that server-rendered foundation.",
+      "features": [
+        {
+          "title": "SSE Streaming",
+          "body": "The AI copilot response is consumed as a Server-Sent Event stream. The client component consumes it through an AsyncGenerator backed by a ReadableStream and TextDecoder, rendering each token incrementally using React Markdown."
+        },
+        {
+          "title": "Resume Upload",
+          "body": "A drag-and-drop uploader sends the resume file to the backend via multipart/form-data. The backend extracts text from the PDF, parses it with an LLM, and returns structured data that auto-fills the profile form."
+        },
+        {
+          "title": "URL-Driven Filters",
+          "body": "Search filters are serialized into URL query parameters with a 300-millisecond debounce. Every filter state is shareable and browser-navigable, and keeps the server components in sync without client state."
+        },
+        {
+          "title": "Optimistic Updates",
+          "body": "Save and unsave actions use optimistic updates: the UI toggles immediately and reverts only on error, giving instant visual feedback without waiting for the server to confirm."
+        },
+        {
+          "title": "httpOnly Auth",
+          "body": "Login and registration flow through Route Handlers that proxy credentials to the backend, receive a JWT, and set it as an httpOnly cookie. A Zustand store hydrates the user profile from a server-side fetch on initial load, keeping auth state consistent across the app without ever exposing the token."
+        }
+      ]
+    },
+    "decisions": {
+      "label": "ENGINEERING DECISIONS",
+      "title": "Engineering Decisions",
+      "items": [
+        {
+          "number": "01",
+          "title": "pgvector over a dedicated vector database",
+          "body": "Using a dedicated vector database (Pinecone, Weaviate, Qdrant) would have added a second infrastructure dependency and a sync problem: relational job data in PostgreSQL, vectors elsewhere. By enabling the pgvector extension, both live in the same database, transactions cover both, and the operational surface is half the size. The trade-off is that PostgreSQL's vector search performs a sequential scan without explicitly configured IVFFlat or HNSW indexes — fast enough at tens of thousands of chunks, but a genuine consideration at millions of records."
+        },
+        {
+          "number": "02",
+          "title": "Running two embedding providers",
+          "body": "Production uses Google Gemini's gemini-embedding-001 model (768-dimensional vectors). Development uses e5-base-v2 running locally via Ollama — same dimensional space, zero cost, no internet required. A request queue enforces one concurrent Gemini request with a two-second delay between calls to stay within quota limits, with a secondary API key that rotates in automatically on daily quota exhaustion. The key constraint: because the two models don't produce identical embeddings, the application tracks which model produced each vector and keeps production and development indexes separate."
+        },
+        {
+          "number": "03",
+          "title": "Regex-first query classifier",
+          "body": "Routing every query through an LLM classifier would add latency and consume tokens for patterns that are entirely unambiguous. The system checks each query against regex patterns for aggregation intent first — zero cost, near-zero latency. Only when no pattern matches does the LLM classifier run. This makes the common case — straightforward retrieval queries — fast and cheap, while preserving the LLM's flexibility for genuinely ambiguous requests. The trade-off is that the regex ruleset requires maintenance as new query patterns emerge."
+        },
+        {
+          "number": "04",
+          "title": "Structured chunking with sliding window fallback",
+          "body": "A generic sliding-window chunker splits text at fixed intervals regardless of content, often producing chunks that blend requirements, benefits, and description into one undifferentiated block. When the LLM parser successfully extracts structured fields, those fields become typed chunks — a requirements chunk contains only requirements. A query about benefits then retrieves benefits chunks with higher precision. The sliding window remains as a fallback for listings the parser cannot reliably extract, ensuring no posting goes un-indexed."
+        }
+      ]
+    },
+    "learned": {
+      "label": "WHAT I LEARNED",
+      "title": "What I Learned",
+      "body1": "The most important lesson from building JobAI is that retrieval quality determines answer quality — not the LLM. A more capable model fed poor context produces confident nonsense. Spending engineering effort on chunking strategy, field detection logic, and query classification has a larger impact on perceived AI quality than upgrading the LLM tier. That realization shifted where the engineering effort was concentrated.",
+      "body2": "Operating across two LLM providers in parallel — Gemini for embeddings, Groq for completions, both with per-minute and per-day quota limits — forced a level of attention to failure handling that most tutorials skip entirely. Exponential backoff, per-key quota tracking, automatic fallback to a secondary key, queue-based concurrency control: none of these are interesting to build, but all of them are necessary for a system that runs a six-hour cron job against external APIs without human supervision."
+    },
+    "techStack": {
+      "label": "TECH STACK",
+      "title": "Technology Decisions",
+      "items": [
+        {
+          "category": "Frontend",
+          "items": "Next.js 16, React 19, Tailwind CSS v4",
+          "description": "App Router with a deliberate RSC/Client split. Server components handle data fetching and initial render; client components handle streaming, uploads, and interactive state."
+        },
+        {
+          "category": "UI Components",
+          "items": "Radix UI, shadcn/ui, Lucide React, React Markdown",
+          "description": "Accessible headless primitives from Radix UI. React Markdown renders streamed AI responses incrementally as tokens arrive."
+        },
+        {
+          "category": "State & Forms",
+          "items": "Zustand, React Hook Form, Zod",
+          "description": "Zustand manages auth state and optimistic UI updates. React Hook Form with Zod schemas handles search and filter form validation with minimal re-renders."
+        },
+        {
+          "category": "Backend",
+          "items": "NestJS 11, Prisma 7, TypeScript",
+          "description": "Eight-module NestJS monolith. Prisma handles all database access with type-safe queries. NestJS Schedule, Throttler, and Terminus health checks provide production-grade reliability."
+        },
+        {
+          "category": "Database",
+          "items": "PostgreSQL + pgvector",
+          "description": "pgvector extension adds a vector column type and cosine similarity search to standard PostgreSQL. Eliminates the need for a dedicated vector database while keeping both data types in one transaction boundary."
+        },
+        {
+          "category": "AI / LLM",
+          "items": "Groq Llama-4-Scout, Google Gemini, Ollama",
+          "description": "Groq is the primary provider for low-latency LLM completions. Gemini provides production embeddings (gemini-embedding-001, 768-dim). Ollama runs both embedding and LLM models locally in development."
+        },
+        {
+          "category": "Auth & Infra",
+          "items": "JWT, bcrypt, httpOnly Cookies",
+          "description": "httpOnly cookie storage prevents XSS token theft. bcrypt handles password hashing. Auth flows through Next.js Route Handlers that proxy to the NestJS backend and set the cookie on success."
+        }
+      ]
+    }
+  }
+}
